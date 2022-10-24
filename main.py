@@ -68,17 +68,17 @@ def get_post(post):
 
 
 async def getAlbumURL(post, caption=None):
-    ALBUM = []
     if caption is None:
         caption = (
-            f"[@{post.owner_username}](https://instagram.com/{post.owner_username}) | [🌐 Instagram](https://www.instagram.com/p/"
-            + post.shortcode
+            f"[@{post.owner_username}](https://instagram.com/{post.owner_username}) | [🌐 Instagram](https://www.instagram.com/p/{post.shortcode}"
             + ")\n\n"
-            + (post.caption or "")
+            + ((post.caption or ""))
         )
+
     if caption and len(caption) > 1024:
-        caption = caption[:1024] + "..."
+        caption = f"{caption[:1024]}..."
     image, video = get_post(post)
+    ALBUM = []
     for i in image:
         ALBUM.append(types.InputMediaPhoto(i, caption=caption))
         caption = None  # using caption only for the first image of the group.
@@ -93,17 +93,17 @@ async def getAlbumURL(post, caption=None):
 
 
 async def getAlbumBytes(post, caption=None):
-    ALBUM = []
     if caption is None:
         caption = (
-            f"[@{post.owner_username}](https://instagram.com/{post.owner_username}) | [🌐Instagram](https://www.instagram.com/p/"
-            + post.shortcode
+            f"[@{post.owner_username}](https://instagram.com/{post.owner_username}) | [🌐Instagram](https://www.instagram.com/p/{post.shortcode}"
             + ")\n\n"
-            + (post.caption or "")
+            + ((post.caption or ""))
         )
+
     if caption and len(caption) > 1024:
-        caption = caption[:1024] + "..."
+        caption = f"{caption[:1024]}..."
     image, video = get_post(post)
+    ALBUM = []
     for i in image:
         file = BytesIO()
         resp = r.get(i)
